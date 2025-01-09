@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="images/logo1.png">
+    <title>Case Study</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</head>
+<body class="blue_body">
+    <img src="https://i.pinimg.com/originals/d9/ab/d5/d9abd52c1e8c05bb14184b8a2815025d.gif" class="dragon" alt="Dragon">
+    <section class="" id="">
+        <nav>
+            <a href="index.html"><img src="../images/Saurav_logo.png"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="bi bi-backspace click" id="backspace" onclick="hideMenu()"></i>
+                <ul>
+                    <li class="listsytle-none"><a href="../index.html">HOME</a></li>
+                    <li class="listsytle-none"><a href="../index.html#about">ABOUT</a></li>
+                    <li class="listsytle-none"><a href="../index.html#blog">BLOG</a></li>
+                    <li class="listsytle-none"><a href="../index.html#contact">CONTACT</a></li>
+                    <li class="listsytle-none"><a href="case_study/case_study.html">CASE STUDY</a></li>
+                </ul>
+            </div>
+            <i class="bi bi-list click" id="list" onclick="showMenu()"></i>      
+        </nav>  
+    </section>
+    <div class="display-flex-wrap">
+        <!-- Introduction section of case study -->
+        <!-- section for text -->
+        <section  class="center-box" id="">
+            <div class="center-box__introduction">
+                <div>
+                    <h1 class="text_align_center">Store Sales - Time Series Forecasting</h1>
+                    <br>
+                    <p>
+                        This case study focuses on time-series forecasting to predict store sales using data from Corporación Favorita, a major grocery retailer based in Ecuador.
+                        <br>
+                        The objective is to develop a model that accurately forecasts unit sales for thousands of items across various Favorita stores. The dataset includes information such as dates, store and item details, promotions, and unit sales, providing an excellent opportunity to apply machine learning techniques.
+                        <br>
+                        The workflow involves the following steps:
+                        <ol>
+                            <li><p>Load Data: Import data from CSV files into a DataFrame.</p></li>
+                            <li><p>Data Splitting: Split the dataset into training and testing sets for model development.</p></li>
+                            <li><p>Model Training and Prediction: Train a machine learning model and use it to make predictions on the test set.</p></li>
+                        </ol>
+                    </p>
+                    <p>For additional details, visit <a href="https://www.kaggle.com/competitions/store-sales-time-series-forecasting">Kaggle</a></p>
+                    <p>Following steps were done in jupter notebook provided by Kaggle. </p>
+                </div>
+                <br>
+                <div>
+                    <h4>First Step: Setup necessary libraries</h4>
+                    <p>Let's write all the necessary libraries before exploring the data.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="import_function_color_green">import &nbsp;</span> numpy &nbsp;<span class="import_function_color_green">as &nbsp;</span> np <span class="comment_color_celeste"> &nbsp; &nbsp;# linear algebra</span></p>
+                            <p class="code_box__text"><span class="import_function_color_green">import &nbsp;</span> pandas &nbsp; <span class="import_function_color_green">as &nbsp;</span> pd <span class="comment_color_celeste"> &nbsp; &nbsp;# data processing, CSV file I/O (e.g. pd.read_csv)</span></p>
+                            <p class="code_box__text"><span class="import_function_color_green">import &nbsp;</span> matplotlib.pyplot &nbsp; <span class="import_function_color_green">as &nbsp;</span> plt <span class="comment_color_celeste"> &nbsp; &nbsp;# Data visualization</span></p>   
+                            <p class="code_box__text"><span class="import_function_color_green">import &nbsp;</span> plotly.express &nbsp; <span class="import_function_color_green">as &nbsp;</span> px <span class="comment_color_celeste">&nbsp; &nbsp;# Data visualization</span></p>
+                            <br>
+                            <p class="code_box__text"><span class="import_function_color_green">from &nbsp;</span> sklearn.ensemble &nbsp; <span class="import_function_color_green">import &nbsp;</span> RandomForestRegressor <span class="comment_color_celeste">&nbsp; &nbsp;# RandomForestRegressor Model</span></p>
+                            <p class="code_box__text"><span class="import_function_color_green">from &nbsp;</span> sklearn.metrics &nbsp; <span class="import_function_color_green">import &nbsp;</span> mean_squared_error,&nbsp; mean_absolute_error <span class="comment_color_celeste">&nbsp; &nbsp;# Precision testing</span></p>    
+                            <br>
+                            <p class="code_box__text"><span class="comment_color_celeste"># Input data files are available in the read-only "../input/" directory</span></p>
+                            <p class="code_box__text"><span class="comment_color_celeste"># For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory</span></p>
+                            <p class="code_box__text"><span class="import_function_color_green">import &nbsp;</span> os </p>
+                            <p class="code_box__text"><span class="import_function_color_green">for &nbsp;</span> dirname, _, filenames  &nbsp;<span class="import_function_color_green">in &nbsp;</span> os.walk(<span class="file-color-orange">'/kaggle/input'</span>): </p>    
+                            <p class="code_box__text padding-left-40px"><span class="import_function_color_green">for &nbsp;</span> filename &nbsp;<span class="import_function_color_green">in&nbsp;</span> filenames:</p>
+                            <p class="code_box__text padding-left-80px"><span class="import_function_color_green">print</span>(os.path.join(dirname, filename))</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box output_background">
+                            <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                            <p class="code_box__text padding-left-40px">
+                                /kaggle/input/store-sales-time-series-forecasting/oil.csv
+                                <br>
+                                /kaggle/input/store-sales-time-series-forecasting/sample_submission.csv
+                                <br>
+                                /kaggle/input/store-sales-time-series-forecasting/holidays_events.csv
+                                <br>
+                                /kaggle/input/store-sales-time-series-forecasting/stores.csv
+                                <br>
+                                /kaggle/input/store-sales-time-series-forecasting/train.csv
+                                <br>
+                                /kaggle/input/store-sales-time-series-forecasting/test.csv
+                                <br>
+                                /kaggle/input/store-sales-time-series-forecasting/transactions.csv</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4>Wrangle Function</h4>
+                    <p>This function is used to read data from a file. Professionals often use this function to read different data files continuously.</p>
+                    <p>We will explore all the files mentioned above in the next few cells</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="file-color-orange">
+                                """
+                                <br>
+                                This function load csv file to DataFrame
+                                <br>
+                                ======================================
+                                <br>
+                                Parameter:
+                                <br>
+                                filepath-> str : (location of file)
+                                <br>
+                                
+                                Result:
+                                <br>
+                                df-> DataFrame
+                                <br>
+                                
+                                """</span></p>
+                                <p class="code_box__text"><span class="import_function_color_green">def</span> &nbsp;wrangle(filepath): </p>
+                                <p class="code_box__text padding-left-40px"><span class="comment_color_celeste"># Read into Data Frame</span></p>
+                                <p class="code_box__text padding-left-40px">df = pd.<span class="function-color-blue">read_csv</span>(filepath)</p>
+                                <p class="code_box__text padding-left-40px"><span class="comment_color_celeste"># Changing date from object to datetime</span></p>
+                                <p class="code_box__text padding-left-40px">df[<span class="file-color-orange">"date"</span>] = pd.<span class="function-color-blue">to_datetime</span>(df[<span class="file-color-orange">"date"</span>])</p>
+                                <p class="code_box__text padding-left-40px"><span class="import_function_color_green">return</span> &nbsp;df</p>
+
+                        </div>
+                    </div>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># reading train data set to data frame using Wrangle function</span></p>
+                            <p class="code_box__text">filepath &nbsp; = &nbsp; (<span class="file-color-orange">"/kaggle/input/store-sales-time-series-forecasting/train.csv"</span>)</p>
+                            <p class="code_box__text">df &nbsp; = &nbsp;<span class="function-color-blue">wrangle</span>(filepath).<span class="function-color-blue">set_index</span>(<span class="file-color-orange">"id"</span>)</p>
+
+                        </div>
+                    </div>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Let's see the Size of our data</span></p>
+                            <p class="code_box__text">df. <span class="function-color-blue">shape</span></p>
+
+                        </div>
+                    </div>  
+                    <!-- section for output -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box output_background">
+                            <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                            <p class="code_box__text padding-left-40px"> (3000888, 5)</p>
+                        </div>
+                    </div> 
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Why don't we look into our sample data. Precisely, let's see 5 rows using "head"</span></p>
+                            <p class="code_box__text">df. <span class="function-color-blue">head</span>(&nbsp;)</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/head_5_sales_forecasting.png" alt="head_5_sales_forecasting">
+                    </div> 
+                </div>
+                <br>
+                <div>
+                    <h5>Moving to Next Step: Let's look into Holiday data from "holidays_events.csv"</h5>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># reading holiday data to Data frame</span></p>
+                            <p class="code_box__text">df_holiday_path &nbsp; = &nbsp; <span class="file-color-orange">"/kaggle/input/store-sales-time-series-forecasting/holidays_events.csv"</span></p>
+                            <p class="code_box__text">df_holiday &nbsp; = &nbsp; pd.<span class="function-color-blue">read_csv</span>(df_holiday_path)</p>
+                            <p class="code_box__text">df_holiday. <span class="function-color-blue">head</span>(&nbsp;)</p> 
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/holiday-head-5.png" alt="holiday-head-5">
+                    </div>
+                    <br>
+                    <p>There are 6 columns in the "holidays_events.csv" file, and some holidays are marked as transferred, which is indicated by the "transferred" column. After reviewing the data, I concluded that selecting dates with "False" in the "transferred" column includes all the required holidays.</p>
+                    <ol>
+                        <li><p>First, we will create a mask to filter holidays where the "transferred" column is marked as "False".</p></li>
+                        <li><p>Next, we will create a new dataframe named "df_holiday" and add the "date" column to it. This will help us identify the dates on which holidays occur.</p></li>
+                        <li><p>Third, we will convert the "date" column to the "datetime" type, which will treat the column as a datetime object. This will be useful for working with time-series data (trends)</p></li>
+                        <li><p>Lastly, we will create a new column named "is_holiday" and set its value to 1 for all rows to indicate that the date is a holiday.</p></li>
+                    </ol>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Creating the dataframe with transferred colum as false.Since it signify there's a special event and there's no transferred in date.</span></p>
+                            <p class="code_box__text">mask_holi = df_holiday[<span class="file-color-orange">"transferred"</span>] == <span class="import_function_color_green">False</span></p>
+                            <p class="code_box__text">df_holiday = df_holiday[mask_holi]</p>
+                            <p class="code_box__text">df_holiday = df_holiday[[<span class="file-color-orange">"date"</span>]]</p>
+                            <p class="code_box__text">df_holiday[<span class="file-color-orange">"date"</span>] = pd.<span class="function-color-blue">to_datetime</span>(df_holiday[<span class="file-color-orange">"date"</span>])</p>
+                            <p class="code_box__text">df_holiday[<span class="file-color-orange">"is_holiday"</span>] = <span class="import_function_color_green">1</span></p>
+                            <p class="code_box__text">df_holiday. <span class="function-color-blue">head</span>(&nbsp;)</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/df_holiday_head_5.png" alt="df_holiday_head_5">
+                    </div>
+                    <br>
+                    <p>There are multiple holidays or events on a single day. So, let's count the number of holidays or events for each day and then sort the dates based on the count of holidays or events.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Aggregating number of holiday in a day</span></p>
+                            <p class="code_box__text">df_holiday = df_holiday[<span class="file-color-orange">"date"</span>]. <span class="function-color-blue">value_counts</span>().<span class="function-color-blue">sort_values</span>().<span class="function-color-blue">to_frame</span>(name=<span class="file-color-orange">"holiday_count"</span>).<span class="function-color-blue">reset_index</span>()</p>
+                        </div>
+                    </div>
+                    <p>
+                        It's time to merge the holiday data with our training data. We will fill in "0" for days with no holiday to simplify calculations in later stages.
+                        <br>
+                        Here, I have used the name "df_holi_int" to distinguish it from "df," as we added the new column "is_holiday" from df_holiday.
+                    </p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Merging holiday date to train data</span></p>
+                            <p class="code_box__text">df_holi_int = df.<span class="function-color-blue">merge</span>(df_holiday[[<span class="file-color-orange">"date"</span>, <span class="file-color-orange">"holiday_count"</span>]], on = <span class="file-color-orange">"date"</span>, how = <span class="file-color-orange">"left"</span> )</p>
+                            <p class="code_box__text">df_holi_int[<span class="file-color-orange">"holiday_count"</span>] = df_holi_int[<span class="file-color-orange">"holiday_count"</span>].<span class="function-color-blue">fillna</span>(<span class="import_function_color_green">0</span>).<span class="function-color-blue">astype</span>(int)</p>
+                        </div>
+                    </div>
+                    <p>Are you excited to look our data frame after adding "is_holiday" columns?</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text">df_holi_int.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/train_holi_head_5.png" alt="train_holi_head_5">
+                    </div>
+                    <br>
+                    <!-- Oil.csv -->
+                    <h5>Adding new feature "oil_price" from "oil.csv"</h5>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Reading oil data to Data frame</span></p>
+                            <p class="code_box__text">df_oil_path = <span class="file-color-orange">"/kaggle/input/store-sales-time-series-forecasting/oil.csv"</span></p>
+                            <p class="code_box__text">df_oil = pd. <span class="function-color-blue">read_csv</span>(df_oil_path)</p>
+                            <p class="code_box__text">df_oil[<span class="file-color-orange">"date"</span>] = pd.<span class="function-color-blue">to_datetime</span>(df_oil[<span class="file-color-orange">"date"</span>])</p>
+                            <p class="code_box__text">df_oil = df_oil.<span class="function-color-blue">rename</span>(columns = {<span class="file-color-orange">"dcoilwtico"</span>: <span class="file-color-orange">"oil_price"</span>})</p>
+                            <p class="code_box__text">df_oil.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/oil-head-5.png" alt="oil-head-5">
+                    </div>
+                    <br>
+                    <p>To analyze trend data, the first step is to plot it. This visualization helps identify whether the data is complete and reveals its overall tread.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Plotting oil price</span></p>
+                            <p class="code_box__text">plt.<span class="function-color-blue">plot</span>(df_oil[<span class="file-color-orange">"date"</span>], df_oil[<span class="file-color-orange">"oil_price"</span>])</p>
+                            <p class="code_box__text">plt.<span class="function-color-blue">xlabel</span>(<span class="file-color-orange">"Day"</span>)</p>
+                            <p class="code_box__text">plt.<span class="function-color-blue">ylabel</span>(<span class="file-color-orange">"Oil price"</span>)</p>
+                            <p class="code_box__text">plt.<span class="function-color-blue">title</span>(<span class="file-color-orange">"Daily oil price"</span>);</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/daily oil price.png" alt="daily oil price">
+                    </div>
+                    <br>
+                    <p>This analysis provides insights into the peak and lowest prices and the state of oil prices at the time of data collection. These observations are valuable for evaluating the dependency of oil prices on sales.</p>
+                    <p>Let's add this column to our training data set.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Adding oil_price column to training data</span></p>
+                            <p class="code_box__text">df = df_holi_int.<span class="function-color-blue">merge</span>(df_oil[[<span class="file-color-orange">"date"</span>, <span class="file-color-orange">"oil_price"</span>]], on = <span class="file-color-orange">"date"</span>, how = <span class="file-color-orange">"left"</span> )</p>
+                            <p class="code_box__text">df.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/complete_training _data.png" alt="complete_training_data">
+                    </div>
+                    <br>
+                    <p>Finally, we have gathered all the necessary data for our modeling. Let's take a look at the information in the data frame.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text">df.<span class="function-color-blue">info</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/info_sales_forecasting.png" alt="info_sales_forecasting">
+                    </div>
+                    <br>
+                    <p>All the data here are numeric except date and family columns. We wil remove date and change family column to numeric. But first, let's check if there's any missing values in columns.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Look if there's any missing data present at any column of our data frame</span></p>
+                            <p class="code_box__text">df.<span class="function-color-blue">isnull</span>().<span class="function-color-blue">sum</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/missing_values.png" alt="missing_values">
+                    </div>
+                    <br>
+                    <p>As expected, the plot above have already revealed that there are many missing values in the oil_price data. Before filling these missing values, let's remove the unnecessary column, "date".</p>
+                    <p>We are removing the "date" column because we are using the RandomForestRegressor, which does not inherently utilize date values for modeling.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"> # Dropping Date column</span></p>
+                            <p class="code_box__text">df = df.<span class="function-color-blue">drop</span>(columns = <span class="file-color-orange">"date"</span>)</p>
+                            <p class="code_box__text">df.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/removing_date_df.png" alt="removing_date_df">
+                    </div>
+                    <br>
+                    <p>Now, we will fill the missing values in the oil_price column using a combination of forward fill and backward fill methods.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Replace all NaN of oil_price with forward and backward fill</span></p>
+                            <p class="code_box__text">df[<span class="file-color-orange">"oil_price"</span>] = df[<span class="file-color-orange">"oil_price"</span>].<span class="function-color-blue">ffill</span>()</p>
+                            <p class="code_box__text">df[<span class="file-color-orange">"oil_price"</span>] = df[<span class="file-color-orange">"oil_price"</span>].<span class="function-color-blue">bfill</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/ffill_bfill_df.png" alt="ffill_bfill_df">
+                    </div>
+                    <br>
+                    <p>We are done cleaning training data.</p>
+                    <p>Let's repeat the same process of adding "holiday" and "oil" columns to test data.</p>
+                    <p>First, let's read the data into the Data Frame.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"> # Let's read test data into the data fame</span></p>
+                            <p class="code_box__text">df = pd.<span class="function-color-blue">read_csv</span>(<span class="file-color-orange">"/kaggle/input/store-sales-time-series-forecasting/test.csv"</span>)</p>
+                            <p class="code_box__text">test_data.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/test_data_head_5.png" alt="test_data_head_5">
+                    </div>
+                    <br>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Change date into datetime format</span></p>
+                            <p class="code_box__text">test_data[<span class="file-color-orange">"date"</span>] = pd.<span class="function-color-blue">to_datetime</span>(test_data[<span class="file-color-orange">"date"</span>])</p>
+                            <p class="code_box__text">test_data.<span class="function-color-blue">info</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/test_data_info.png" alt="test_data_info">
+                    </div>
+                    <br>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Now let's merge holiday data</span></p>
+                            <p class="code_box__text">test_holi_int = test_data.<span class="function-color-blue">merge</span>(df_holiday[[<span class="file-color-orange">"date"</span>, <span class="file-color-orange">"holiday_count"</span>]], on=<span class="file-color-orange">"date"</span>, how=<span class="file-color-orange">"left"</span>)</p>
+                            <p class="code_box__text">test_holi_int[<span class="file-color-orange">"holiday_count"</span>] = test_holi_int[<span class="file-color-orange">"holiday_count"</span>].<span class="function-color-blue">fillna</span>(0).<span class="function-color-blue">astype</span>(int)</p>
+                            <p class="code_box__text">test_holi_int.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/test_holiday_data.png" alt="test_holiday_data">
+                    </div>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Adding oil_price column to training data</span></p>
+                            <p class="code_box__text">test_data = test_holi_int.<span class="function-color-blue">merge</span>(df_oil[[<span class="file-color-orange">"date"</span>, <span class="file-color-orange">"oil_price"</span>]], on=<span class="file-color-orange">"date"</span>, how=<span class="file-color-orange">"left"</span>)</p>
+                            <p class="code_box__text">test_data.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/test_oil_data.png" alt="test_oil_data">
+                    </div>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Replace all NaN of oil_price with forward and backward fill</span></p>
+                            <p class="code_box__text">test_data[<span class="file-color-orange">"oil_price"</span>] = test_data[<span class="file-color-orange">"oil_price"</span>].<span class="function-color-blue">ffill</span>()</p>
+                            <p class="code_box__text">test_data[<span class="file-color-orange">"oil_price"</span>] = test_data[<span class="file-color-orange">"oil_price"</span>].<span class="function-color-blue">bfill</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Dropping the date column and setting index to id</span></p>
+                            <p class="code_box__text">test_data = test_data.<span class="function-color-blue">drop</span>(columns = <span class="file-color-orange">"date"</span>)</p>
+                            <p class="code_box__text">test_data = test_data.<span class="function-color-blue">set_index</span>(<span class="file-color-orange">"id"</span>)</p>
+                            <p class="code_box__text">test_data.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/complete_test_data.png" alt="complete_test_data">
+                    </div>
+                </div>
+
+                <br>
+
+                <!-- Splitting dataset -->
+                <div>
+                    <h4>Split the data</h4>
+                    <p>Now it's time to split the data into training and test sets. Since this is a time series dataset, we will use a cutoff point to divide the data, ensuring the temporal order is preserved.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># splitting the data into train and test</span></p>
+                            <p class="code_box__text">target = <span class="file-color-orange">"sales"</span></p>
+                            <p class="code_box__text">X = df.<span class="function-color-blue">drop</span>(columns = target)</p>
+                            <p class="code_box__text">y = df[target]</p>
+                            <p class="code_box__text">cutoff = int(len(df) * 0.8)</p>
+                            <p class="code_box__text">X_train, X_test, y_train, y_test = X.<span class="function-color-blue">iloc</span>[:cutoff], X.<span class="function-color-blue">iloc</span>[cutoff:], y.<span class="function-color-blue">iloc</span>[:cutoff], y.<span class="function-color-blue">iloc</span>[cutoff:]</p>
+                        </div>
+                    </div>
+                    <p>There is a column "family" with categorical data, so let's convert it into a numeric format using one-hot encoding. This will create binary columns for each category, allowing the model to work with numeric data.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># initiating one-hot encoding to X_train</span></p>
+                            <p class="code_box__text">X_train_encoding = pd.<span class="function-color-blue">get_dummies</span>(X_train, columns = [<span class="file-color-orange">"family"</span>])</p>
+                            <p class="code_box__text"><span class="comment_color_celeste"># initiating one-hot encoding to X_test data</span></p>
+                            <p class="code_box__text">X_test_encoding = pd.<span class="function-color-blue">get_dummies</span>(X_test, columns = [<span class="file-color-orange">"family"</span>])</p>
+                            <p class="code_box__text"><span class="comment_color_celeste"># initiating one-hot encoding to test data</span></p>
+                            <p class="code_box__text">test_encoding = pd.<span class="function-color-blue">get_dummies</span>(test_data, columns = [<span class="file-color-orange">"family"</span>])</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model training -->
+                <div>
+                    <h4>Model training</h4>
+                    <p>It's time to celebrate! We're at the moment to train our first model, RandomForestRegressor. This ensemble model combines the results of multiple decision trees to improve accuracy and reduce overfitting.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Now it's time to train our RandomForestRegressor model</span></p>
+                            <p class="code_box__text">model = RandomForestRegressor(random_state = <span class="import_function_color_green">42</span>)</p>
+                            <p class="code_box__text">model.<span class="function-color-blue">fit</span>(X_train_encoding, y_train)</p>
+                        </div>
+                    </div>
+                    <p>Now, that our model is trained. Let's predict our X_test</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Predicting the model</span></p>
+                            <p class="code_box__text">y_predict = model.<span class="function-color-blue">predict</span>(X_test_encoding)</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Model analysis -->
+                <div>
+                    <h4>Model Analysis</h4>
+                    <p>Now that we have our predictions, let's analyze the model's performance.</p>
+                    <p>Here we will use "Root Mean Squared Logarithmic Error (RMSLE)" to evaluate accuracy, which calculates the square root of the average of the squared differences between the logarithms of the predicted and actual values.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"> # How good is our model? test using RMSLE</span></p>
+                            <p class="code_box__text"><span class="import_function_color_green">def</span> <span class="function-color-blue">rmsle</span>(y_test, y_pred):</p>
+                            <p class="code_box_text padding-left-40px"><span class="import_function_color_green">return &nbsp;</span>np.<span class="function-color-blue">sqrt</span>(mean_squared_error(np.<span class="function-color-blue">log1p</span>(y_test), np.<span class="function-color-blue">log1p</span>(y_pred)))</p>
+                            <p class="code_box__text">rmsle_value = rmsle(y_test.<span class="function-color-blue">reset_index</span>().<span class="function-color-blue">drop</span>(columns=<span class="file-color-orange">"index"</span>, y_predict))</p>
+                            <p class="code_box__text"><span class="import_function_color_green">print</span>(f"RMSLE value is: {rmsle_value}")</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box output_background">
+                            <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                            <p class="code_box__text padding-left-40px"> RMSLE value is: 0.8924370427620725</p>
+                        </div>
+                    </div>
+                    <p>What do you think about the result? For the model to be a good fit, both values should be lower.</p>
+                    <p>Since this is our first model, it serves as the baseline. Now, we can explore other models to further reduce these values and improve the fit, right?</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Put predicted values in dataframe </span></p>
+                            <p class="code_box__text">y_predict_df = pd.<span class="function-color-blue">DataFrame</span>(y_predict, index=y_test.<span class="function-color-blue">index</span>, columns = [<span class="file-color-orange">"Sales"</span>])</p>
+                            <p class="code_box__text">y_predict_df.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/y_predict_df.png" alt="y_predict_df">
+                    </div>
+                    <br>
+                </div>
+                <!-- Predicting the test set -->
+                <div>
+                    <h4>Predicting test data</h4>
+                    <p>Our initial model performs well as a baseline, but it is too early to evaluate it using the test data. Instead, we should explore other models to further improve the current model's metrics.</p>
+                    <p>However, as part of the learning process, we will proceed to predict the test data using the current RandomForestRegressor model.</p>
+                    <!-- section for code -->
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Predicting the test dataset</span></p>
+                            <p class="code_box__text">y_predict_test = model.predict(test_encoding)</p>
+                        </div>
+                    </div>
+                    <div class="center-box" id="">
+                        <div class="center-box__code_box">
+                            <p class="code_box__text"><span class="comment_color_celeste"># Put predicted values of test set in the data frame</span></p>
+                            <p class="code_box__text">y_predict_test_df = pd.<span class="function-color-blue">DataFrame</span>(y_predict_test, index=test_encoding.<span class="function-color-blue">index</span>, columns=[<span class="file-color-orange">"Sales"</span>])</p>
+                            <p class="code_box__text">y_predict_test_df.<span class="function-color-blue">head</span>()</p>
+                        </div>
+                    </div>
+                    <!-- section for output -->      
+                    <!-- section for table image -->
+                    <div class="padding-left-40px">
+                        <p class="code_box__text"><span class="output-color-red">output:</span></p>
+                        <img class="padding-left-40px" src="images_case_study/Predict_values_of_test.png" alt="Predict_values_of_test">
+                    </div>
+                    <br>
+                    <div>
+                        <p>You now have the skills to clean data, apply the RandomForestRegressor, and make predictions on a test set. You can explore similar datasets on Kaggle and use the same model to make predictions. Additionally, Kaggle offers a great opportunity to deepen your knowledge of machine learning.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <section class="contact display-flex-wrap__element1" id="contact">
+            <footer class="contact__container">
+                <h3>If you want to reach out.</h3>
+                <div class="email">
+                    <h4 class="title">Send me email on:</h4>
+                    <span class="email__discrip">
+                        <i class="bi bi-envelope-at-fill icon-nounderline-white-color"></i>
+                        <p>lordarcus11@gmail.com</p>
+                    </span> 
+                </div>
+                <div class="other-social-media-accounts">
+                    <h4 class="title">Or find me on:</h4>
+                    <ul class="flex-gap">
+                        <li class="listsytle-none "><a href = "https://www.facebook.com/profile.php?id=100074606149374"><i class="bi bi-facebook icon-nounderline-white-color medium-size"></i></a></li>
+                        <li class="listsytle-none "><a href = "https://github.com/LordArcus"><i icon-nounderline-white-color class="bi bi-github icon-nounderline-white-color medium-size"></i></a></li>
+                        <li class="listsytle-none "><a href = "https://www.instagram.com/acharyasaurav2700?igsh=MXY2empwNWM5dXJ0eQ%3D%3D"><i class="bi bi-instagram icon-nounderline-white-color medium-size"></i></a></li>
+                        <li class="listsytle-none "><a href = "https://www.linkedin.com/in/saurav-acharya-086a91302?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="bi bi-linkedin icon-nounderline-white-color medium-size"></i></a></li>
+                    </ul>  
+                </div>
+                <div class="copyrights">
+                    <p class="copyrights__text">&#169; 2025 Saurav Acharya. </p>
+                </div>
+            </footer>
+        </section>
+    </div>
+    <script src="../script.js"></script>
+</body>
+</html>
