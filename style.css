@@ -430,11 +430,12 @@
   
     .nav-links ul li {
       display: block;
+      padding: 0.6rem;
     }
     
     .nav-links {
       position: absolute;
-      background: var(--primary-color);
+      background: #211031;
       height: 100vh;
       width: 200px;
       top: 0;
@@ -446,6 +447,10 @@
       border-radius: 5rem 0rem 0rem 80rem;
     }
 
+    #backspace {
+      padding: 1.5rem;
+    }
+    
     #list {
       display: block;
     }
